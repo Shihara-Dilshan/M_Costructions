@@ -10,12 +10,14 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ProviderScope(
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Named Routes Demo',
         initialRoute: '/',
         routes: {
           '/': (context) => const SplashScreen(),
+          '/login': (context) => const LoginScreen(),
+          '/signup': (context) => const SignUpScreen(),
           '/login': (context) => LoginScreen(),
-          '/signup': (context) => const SignScreen(),
           '/home': (context) => const Dashboard(),
         },
       ),

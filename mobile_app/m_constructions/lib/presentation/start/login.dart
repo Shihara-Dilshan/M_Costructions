@@ -1,58 +1,123 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:m_constructions/presentation/app/widgets/common_email_input.dart';
-import 'package:m_constructions/presentation/app/widgets/common_password_input.dart';
-import 'package:m_constructions/presentation/app/widgets/common_rounded_button.dart';
-import 'package:m_constructions/presentation/dashboard/dashboard.dart';
-import 'package:m_constructions/presentation/start/splash_screen.dart';
 
 class LoginScreen extends HookConsumerWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final secureText = useState(false);
+    TextEditingController usernameController = TextEditingController();
+
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text("Login"),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 60.0),
-              child: Center(
-                child: Container(
-                    width: 200,
-                    height: 150,
-                    child: Image.asset('assets/images/logo.jpeg')),
+      body: Padding(
+        padding: EdgeInsets.all(10),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.only(top: 0, left: 10, right: 10),
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.access_alarm,
+                          size: 50,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "SVAM Constructions",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 25,
+                            letterSpacing: 3,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    TextField(
+                      controller: usernameController,
+                      decoration: InputDecoration(
+                        hintText: "Your username",
+                        labelText: "Username",
+                        labelStyle:
+                            TextStyle(color: Colors.grey[600], fontSize: 15),
+                        border: OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.person),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextField(
+                      decoration: InputDecoration(
+                        hintText: "Your password",
+                        labelText: "Password",
+                        labelStyle:
+                            TextStyle(color: Colors.grey[600], fontSize: 15),
+                        border: OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                          icon: Icon(secureText.value
+                              ? Icons.security
+                              : Icons.remove_red_eye),
+                          onPressed: () {
+                            secureText.value = !secureText.value;
+                          },
+                        ),
+                      ),
+                      obscureText: secureText.value,
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      width: 200,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextButton(
+                        child: Text(
+                          'Login',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () {
+                          print(usernameController.text);
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text("Don't have account? "),
+                        TextButton(
+                          child: Text(
+                            "Please Create Account",
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                          onPressed: () {},
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: CommonEmailInput()),
-            Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 15, bottom: 0),
-                child: CommonPasswordInput()),
-            TextButton(
-              onPressed: () {},
-              child: Text(
-                'Forgot Password',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
-              ),
-            ),
-            CommonRoundedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Dashboard()),
-                );
-              },
-            ),
-            SizedBox(
-              height: 130,
-            ),
-            Text('Create Account')
-          ],
+          ),
         ),
       ),
     );
