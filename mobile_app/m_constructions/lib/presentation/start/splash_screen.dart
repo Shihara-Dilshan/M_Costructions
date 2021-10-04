@@ -6,46 +6,39 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:m_constructions/application/app/app_state_provider.dart';
 import 'package:m_constructions/presentation/start/login.dart';
 
+
+import 'login.dart';
+
+
 class SplashScreen extends HookConsumerWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
-      Timer(Duration(seconds: 3), () {
-        Navigator.of(context)
-            .pushReplacement(MaterialPageRoute(builder: (_) => LoginScreen()));
+      Future.delayed(const Duration(milliseconds: 2000), () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+        );
       });
     }, const []);
-
-    final isSubmitting =
-        ref.watch(appStateNotifierProvider.select((value) => value.token));
+    // final isSubmitting =
+    //     ref.watch(appStateNotifierProvider.select((value) => value.token));
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "SVAM",
-              style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                  letterSpacing: 5),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              "CONSTRUCTIONS",
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.black,
-                letterSpacing: 10,
+      body: Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/logo.jpeg',
+                width: 180,
+                height: 180,
               ),
-            )
-          ],
+              Text('M Constructions')
+            ],
+          ),
         ),
       ),
     );

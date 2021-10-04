@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:m_constructions/presentation/dashboard/dashboard.dart';
 import 'package:m_constructions/presentation/start/login.dart';
 import 'package:m_constructions/presentation/start/sign_up.dart';
 import 'package:m_constructions/presentation/start/splash_screen.dart';
@@ -16,6 +17,8 @@ class MyApp extends HookConsumerWidget {
           '/': (context) => const SplashScreen(),
           '/login': (context) => const LoginScreen(),
           '/signup': (context) => const SignUpScreen(),
+          '/login': (context) => LoginScreen(),
+          '/home': (context) => const Dashboard(),
         },
       ),
     );
